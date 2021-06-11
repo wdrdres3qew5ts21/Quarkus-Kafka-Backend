@@ -32,7 +32,6 @@ public class AlienEventService {
         int nextInt = random.nextInt(100);
         Multi<Integer> randomInteger = Multi.createFrom().ticks().every(Duration.ofSeconds(5)).onOverflow().drop()
                 .map(tick -> random.nextInt(100));
-        //return nextInt;
         return randomInteger;
     }
 
@@ -42,20 +41,10 @@ public class AlienEventService {
     @Broadcast
     @Acknowledgment(Acknowledgment.Strategy.PRE_PROCESSING)
     public String convertAlientPlan(Integer incomingNumber) {
-        logger.info("convertAlientPlan : " + count);
+        logger.info("convertAlientPlan : " + incomingNumber);
         count++;
         String yutaniStamp = "Yutani Z56 ["+incomingNumber+"]";
         return yutaniStamp;
     }
-
-    @Incoming("alien_event") 
-    @Acknowledgment(Acknowledgment.Strategy.PRE_PROCESSING)
-    public String debug(Integer incomingNumber) {
-        logger.info("debug :"+count);
-        count++;
-        String yutaniStamp = "Yutani Z56 ["+incomingNumber+"]";
-        return yutaniStamp;
-    }
-
 
 }
